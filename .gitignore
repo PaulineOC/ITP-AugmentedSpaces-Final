@@ -1,1 +1,5 @@
 *.xcuserstate
+/ARAnchorPlayground.xcodeproj/xcuserdata/
+/ARAnchorPlayground.xcodeproj/project.xcworkspace/
+/.idea/
+
