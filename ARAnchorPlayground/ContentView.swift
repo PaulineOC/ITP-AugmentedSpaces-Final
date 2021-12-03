@@ -14,11 +14,11 @@ let startingLava = 2
 let larvaRequired = 3
 
 //MARK: Interactive States
-enum AppState {
+enum AppMode {
     case START
     case INTRO
     case CORAL_FORMATION
-    case COMMUNITY
+    case CORAL_COMMUNITY
     case CORAL_BLEACHING
 }
 enum IntroState{
@@ -33,7 +33,7 @@ enum CoralFormationState{
     case SUCCESS
 }
 
-enum CommunityState{
+enum CoralCommunityState{
     case INSTRUCTIONS
     case FOUND_COMMUNITY
     case JOINED_COMMUNITY
@@ -49,7 +49,13 @@ enum CoralBleachingState{
 
 // MARK: - View model for handling communication between the UI and ARView.
 class ViewModel: ObservableObject {
-    @Published var appState: AppState = AppState.START
+    
+    // App / Game States
+    @Published var appMode: AppMode = AppMode.INTRO
+    @Published var currentIntroState: IntroState =  IntroState.INSTRUCTIONS
+    @Published var currentCoralFormationState: CoralFormationState =  CoralFormationState.INTRO
+    @Published var currentCoralCommunityState: CoralCommunityState =  CoralCommunityState.INSTRUCTIONS
+    @Published var currentCoralBleachingState: CoralBleachingState =  CoralBleachingState.INTRO
 
     let uiSignal = PassthroughSubject<UISignal, Never>()
 
@@ -66,22 +72,52 @@ struct ContentView : View {
     var body: some View {
         ZStack {
             
-            //App Phase
-            ARViewContainer(viewModel: viewModel)
+            //AppMode.START
+            if(viewModel.appMode == AppMode.START){
+                
+            }//end of AppMode.START
             
-            if(viewModel.appState == AppState.START){ //AppState.START
-                Button {
-                    viewModel.uiSignal.send(.reset)
-                } label: {
-                    Label("Reset", systemImage: "goforward")
-                        .font(.system(.title2).weight(.medium))
-                        .foregroundColor(.red)
-                        .labelStyle(IconOnlyLabelStyle())
-                        .frame(width: 30, height: 30)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding()
-            }//end of AppState.START
+            else {
+                
+                //AppMode.Intro
+                if(viewModel.appMode == AppMode.INTRO){
+                    if(viewModel.currentIntroState == IntroState.INSTRUCTIONS){
+                          d
+                    }
+                    else if(viewModel.currentIntroState == IntroState.CORAL_FACTS){}
+                }//end of AppMode.Intro
+                
+                //AppMode.CoralFormation
+                else if(viewModel.appMode == AppMode.CORAL_FORMATION){
+                    if(viewModel.currentCoralFormationState == CoralFormationState.INTRO){}
+                    else if(viewModel.currentCoralFormationState == CoralFormationState.INTSTRUCTIONS){}
+                    else if(viewModel.currentCoralFormationState == CoralFormationState.CREATION){}
+                    else if(viewModel.currentCoralFormationState == CoralFormationState.SUCCESS){}
+                }//End of AppMode.CoralFormation
+                
+                //AppMode.CORAL_COMMUNITY
+                else if(viewModel.appMode == AppMode.CORAL_COMMUNITY){
+                    if(viewModel.currentCoralCommunityState == CoralCommunityState.INSTRUCTIONS){}
+                    else if(viewModel.currentCoralCommunityState == CoralCommunityState.FOUND_COMMUNITY){}
+                    else if(viewModel.currentCoralCommunityState == CoralCommunityState.JOINED_COMMUNITY){}
+                }//End of AppMode.CORAL_COMMUNITY
+                
+                //AppMode.CORAL_BLEACHING
+                else if(viewModel.appMode == AppMode.CORAL_BLEACHING){
+                    if(viewModel.currentCoralBleachingState == CoralBleachingState.INSTRUCTIONS){}
+                    else if(viewModel.currentCoralBleachingState == CoralBleachingState.INTRO){}
+                    else if(viewModel.currentCoralBleachingState == CoralBleachingState.INSTRUCTIONS){}
+                    else if(viewModel.currentCoralBleachingState == CoralBleachingState.FAILURE){}
+                    else if(viewModel.currentCoralBleachingState == CoralBleachingState.SUCCESS){}
+                }//End of AppMode.CORAL_BLEACHING
+                
+                
+                ARViewContainer(viewModel: viewModel)
+
+                
+            }// end of main else
+            
+            //MARK: Testing Space (add UI that doesn't need state)
             
             // Reset button.
             Button {
