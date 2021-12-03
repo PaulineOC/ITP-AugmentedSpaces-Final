@@ -67,7 +67,6 @@ struct ContentView : View {
         ZStack {
             
             //App Phase
-            // AR View.
             ARViewContainer(viewModel: viewModel)
             
             if(viewModel.appState == AppState.START){ //AppState.START
