@@ -68,25 +68,7 @@ struct ContentView : View {
             
             
             //App Phase
-            if(true){
-                
-                
-                Button {
-                    viewModel.uiSignal.send(.reset)
-                } label: {
-                    Label("Reset", systemImage: "gobackward")
-                        .font(.system(.title2).weight(.medium))
-                        .foregroundColor(.white)
-                        .labelStyle(IconOnlyLabelStyle())
-                        .frame(width: 30, height: 30)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding()
-                
-                
-                
-                
-            }//end of if statemetn
+         
             // AR View.
             ARViewContainer(viewModel: viewModel)
             
