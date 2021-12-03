@@ -49,6 +49,7 @@ enum CoralBleachingState{
 
 // MARK: - View model for handling communication between the UI and ARView.
 class ViewModel: ObservableObject {
+    @Published var appState: AppState = AppState.START
 
     let uiSignal = PassthroughSubject<UISignal, Never>()
 
@@ -66,6 +67,22 @@ struct ContentView : View {
         ZStack {
             // AR View.
             ARViewContainer(viewModel: viewModel)
+            
+            if(viewModel.appState == AppState.START){
+                Button {
+                    viewModel.uiSignal.send(.reset)
+                } label: {
+                    Label("Reset", systemImage: "goforward")
+                        .font(.system(.title2).weight(.medium))
+                        .foregroundColor(.red)
+                        .labelStyle(IconOnlyLabelStyle())
+                        .frame(width: 30, height: 30)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding()
+                
+                
+            }
             
             // Reset button.
             Button {
@@ -190,19 +207,12 @@ class SimpleARView: ARView, ARSessionDelegate {
                                 // Remove gesture for particular item?
                                 //print(self.arView.gestureRecognizers)
                                 
-                                let test = self.arView.gestureRecognizers[0]
-                                
+//                                let test = self.arView.gestureRecognizers[0]
 //                                print(self.pov.orientation.angle)
-                                print(self.pov.transform.rotation)
-
-                                
-                                ARView.EntityGestures.translation.remove(self.allLarva[i]);
+//                                print(self.pov.transform.rotation)
+//                                ARView.EntityGestures.translation.remove(self.allLarva[i]);
  
                                 //self.arView.removeGestureRecognizer([.translation])
-                                
-                                                       
-            
-                                
 //                                arView.installGestures([.translation,], for: larva)
 
                                 
@@ -353,7 +363,7 @@ class SimpleARView: ARView, ARSessionDelegate {
         
         let testCameraX = self.cameraTransform.translation.x
         let originAnchorX = self.originAnchor.position.x
-        let testDist = distance(<#T##x: SIMD2<Float>##SIMD2<Float>#>, <#T##y: SIMD2<Float>##SIMD2<Float>#>)(testCameraX, originAnchorX)
+//        let testDist = distance(<#T##x: SIMD2<Float>##SIMD2<Float>#>, <#T##y: SIMD2<Float>##SIMD2<Float>#>)(testCameraX, originAnchorX)
 //        print(distance(, self.originAnchor.position)
         
     }
