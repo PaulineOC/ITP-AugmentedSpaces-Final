@@ -66,13 +66,11 @@ struct ContentView : View {
     var body: some View {
         ZStack {
             
-            
             //App Phase
-         
             // AR View.
             ARViewContainer(viewModel: viewModel)
             
-            if(viewModel.appState == AppState.START){
+            if(viewModel.appState == AppState.START){ //AppState.START
                 Button {
                     viewModel.uiSignal.send(.reset)
                 } label: {
@@ -84,9 +82,7 @@ struct ContentView : View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding()
-                
-                
-            }
+            }//end of AppState.START
             
             // Reset button.
             Button {
