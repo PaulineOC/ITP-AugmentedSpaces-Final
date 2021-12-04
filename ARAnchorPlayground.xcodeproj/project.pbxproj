@@ -19,6 +19,8 @@
 		51A39AFC275B0E73006762C6 /* IMG_1661.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AF9275B0E73006762C6 /* IMG_1661.HEIC */; };
 		51A39AFD275B0E73006762C6 /* IMG_1662.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AFA275B0E73006762C6 /* IMG_1662.HEIC */; };
 		51AC648E27573C6900A2EC3A /* stone-test.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 51AC648D27573C6900A2EC3A /* stone-test.usdz */; };
+		51ADCCE2275B3FAF00F42C0F /* world-coral-test.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 51ADCCE1275B3FAF00F42C0F /* world-coral-test.usdz */; };
+		51ADCCE4275B454200F42C0F /* mycoral-test.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 51ADCCE3275B454200F42C0F /* mycoral-test.usdz */; };
 		51CB031F275758170024552E /* stone-test-larva.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 51CB031E275758170024552E /* stone-test-larva.usdz */; };
 		6A096DBE2719E6FA00909E2D /* dino.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6A096DBD2719E6FA00909E2D /* dino.jpg */; };
 		6ABC3D1E27172CF400185A68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC3D1D27172CF400185A68 /* AppDelegate.swift */; };
@@ -41,6 +43,8 @@
 		51A39AF9275B0E73006762C6 /* IMG_1661.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1661.HEIC; sourceTree = "<group>"; };
 		51A39AFA275B0E73006762C6 /* IMG_1662.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1662.HEIC; sourceTree = "<group>"; };
 		51AC648D27573C6900A2EC3A /* stone-test.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "stone-test.usdz"; sourceTree = "<group>"; };
+		51ADCCE1275B3FAF00F42C0F /* world-coral-test.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "world-coral-test.usdz"; sourceTree = "<group>"; };
+		51ADCCE3275B454200F42C0F /* mycoral-test.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "mycoral-test.usdz"; sourceTree = "<group>"; };
 		51CB031E275758170024552E /* stone-test-larva.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "stone-test-larva.usdz"; sourceTree = "<group>"; };
 		6A096DBD2719E6FA00909E2D /* dino.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dino.jpg; sourceTree = "<group>"; };
 		6ABC3D1A27172CF400185A68 /* Coral.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coral.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +69,8 @@
 		51CB031D275755DB0024552E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				51ADCCE3275B454200F42C0F /* mycoral-test.usdz */,
+				51ADCCE1275B3FAF00F42C0F /* world-coral-test.usdz */,
 				51CB031E275758170024552E /* stone-test-larva.usdz */,
 				51AC648D27573C6900A2EC3A /* stone-test.usdz */,
 			);
@@ -187,11 +193,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				51A39AF0275B0E01006762C6 /* IMG_1657.HEIC in Resources */,
+				51ADCCE4275B454200F42C0F /* mycoral-test.usdz in Resources */,
 				6A096DBE2719E6FA00909E2D /* dino.jpg in Resources */,
 				51A39AF2275B0E01006762C6 /* IMG_1652.HEIC in Resources */,
 				6ABC3D2727172CF600185A68 /* Preview Assets.xcassets in Resources */,
 				51A39AF3275B0E01006762C6 /* IMG_1656.HEIC in Resources */,
 				6ABC3D3227172DA800185A68 /* itp-logo.jpg in Resources */,
+				51ADCCE2275B3FAF00F42C0F /* world-coral-test.usdz in Resources */,
 				51AC648E27573C6900A2EC3A /* stone-test.usdz in Resources */,
 				51A39AF4275B0E01006762C6 /* IMG_1659.HEIC in Resources */,
 				51A39AF6275B0E01006762C6 /* IMG_1654.HEIC in Resources */,
