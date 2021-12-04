@@ -73,6 +73,7 @@ struct ContentView : View {
             }//end of AppMode.START
             
             else {
+                
                 //AppMode.Intro
                 if(viewModel.appMode == AppMode.INTRO){
                     if(viewModel.currentIntroState == IntroState.INSTRUCTIONS){
@@ -94,6 +95,7 @@ struct ContentView : View {
                                 .font(.system(.largeTitle))
                                 .foregroundColor(.white)
                         }
+                        
                     }
                     else if(viewModel.currentCoralFormationState == CoralFormationState.CREATION){}
                     else if(viewModel.currentCoralFormationState == CoralFormationState.GROWTH){}
@@ -107,8 +109,12 @@ struct ContentView : View {
                     else if(viewModel.currentCoralCommunityState == CoralCommunityState.FOUND_COMMUNITY){}
                     else if(viewModel.currentCoralCommunityState == CoralCommunityState.JOINED_COMMUNITY){}
                 }//End of AppMode.CORAL_COMMUNITY
+                 
                 ARViewContainer(viewModel: viewModel)
+
             }// end of main else
+
+ 
             // Reset button.
             Button {
                 viewModel.uiSignal.send(.reset)
@@ -121,6 +127,7 @@ struct ContentView : View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding()
+            
         }
         .edgesIgnoringSafeArea(.all)
         .statusBar(hidden: true)
@@ -478,6 +485,7 @@ class SimpleARView: ARView, ARSessionDelegate {
         print(self.cameraTransform.rotation.vector.y)
         let currCameraRotationY = self.cameraTransform.rotation.vector.y
         
+        //Animate Coral Growing Timer Gif
         
         //Animate Coral Growing Timer Gif
         if(self.viewModel.appMode == AppMode.CORAL_FORMATION && self.viewModel.currentCoralFormationState == CoralFormationState.GROWTH){
