@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51A39AF0275B0E01006762C6 /* IMG_1657.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AE8275B0E01006762C6 /* IMG_1657.HEIC */; };
+		51A39AF1275B0E01006762C6 /* IMG_1653.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AE9275B0E01006762C6 /* IMG_1653.HEIC */; };
+		51A39AF2275B0E01006762C6 /* IMG_1652.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AEA275B0E01006762C6 /* IMG_1652.HEIC */; };
+		51A39AF3275B0E01006762C6 /* IMG_1656.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AEB275B0E01006762C6 /* IMG_1656.HEIC */; };
+		51A39AF4275B0E01006762C6 /* IMG_1659.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AEC275B0E01006762C6 /* IMG_1659.HEIC */; };
+		51A39AF5275B0E01006762C6 /* IMG_1658.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AED275B0E01006762C6 /* IMG_1658.HEIC */; };
+		51A39AF6275B0E01006762C6 /* IMG_1654.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AEE275B0E01006762C6 /* IMG_1654.HEIC */; };
+		51A39AF7275B0E01006762C6 /* IMG_1655.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AEF275B0E01006762C6 /* IMG_1655.HEIC */; };
+		51A39AFB275B0E73006762C6 /* IMG_1660.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AF8275B0E73006762C6 /* IMG_1660.HEIC */; };
+		51A39AFC275B0E73006762C6 /* IMG_1661.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AF9275B0E73006762C6 /* IMG_1661.HEIC */; };
+		51A39AFD275B0E73006762C6 /* IMG_1662.HEIC in Resources */ = {isa = PBXBuildFile; fileRef = 51A39AFA275B0E73006762C6 /* IMG_1662.HEIC */; };
 		51AC648E27573C6900A2EC3A /* stone-test.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 51AC648D27573C6900A2EC3A /* stone-test.usdz */; };
 		51CB031F275758170024552E /* stone-test-larva.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 51CB031E275758170024552E /* stone-test-larva.usdz */; };
 		6A096DBE2719E6FA00909E2D /* dino.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6A096DBD2719E6FA00909E2D /* dino.jpg */; };
@@ -18,10 +29,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51A39AE8275B0E01006762C6 /* IMG_1657.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1657.HEIC; sourceTree = "<group>"; };
+		51A39AE9275B0E01006762C6 /* IMG_1653.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1653.HEIC; sourceTree = "<group>"; };
+		51A39AEA275B0E01006762C6 /* IMG_1652.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1652.HEIC; sourceTree = "<group>"; };
+		51A39AEB275B0E01006762C6 /* IMG_1656.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1656.HEIC; sourceTree = "<group>"; };
+		51A39AEC275B0E01006762C6 /* IMG_1659.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1659.HEIC; sourceTree = "<group>"; };
+		51A39AED275B0E01006762C6 /* IMG_1658.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1658.HEIC; sourceTree = "<group>"; };
+		51A39AEE275B0E01006762C6 /* IMG_1654.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1654.HEIC; sourceTree = "<group>"; };
+		51A39AEF275B0E01006762C6 /* IMG_1655.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1655.HEIC; sourceTree = "<group>"; };
+		51A39AF8275B0E73006762C6 /* IMG_1660.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1660.HEIC; sourceTree = "<group>"; };
+		51A39AF9275B0E73006762C6 /* IMG_1661.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1661.HEIC; sourceTree = "<group>"; };
+		51A39AFA275B0E73006762C6 /* IMG_1662.HEIC */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1662.HEIC; sourceTree = "<group>"; };
 		51AC648D27573C6900A2EC3A /* stone-test.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "stone-test.usdz"; sourceTree = "<group>"; };
 		51CB031E275758170024552E /* stone-test-larva.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "stone-test-larva.usdz"; sourceTree = "<group>"; };
 		6A096DBD2719E6FA00909E2D /* dino.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dino.jpg; sourceTree = "<group>"; };
-		6ABC3D1A27172CF400185A68 /* AR Anchor PG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AR Anchor PG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6ABC3D1A27172CF400185A68 /* Coral.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coral.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ABC3D1D27172CF400185A68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6ABC3D1F27172CF400185A68 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6ABC3D2327172CF600185A68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,7 +82,7 @@
 		6ABC3D1B27172CF400185A68 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6ABC3D1A27172CF400185A68 /* AR Anchor PG.app */,
+				6ABC3D1A27172CF400185A68 /* Coral.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,6 +111,17 @@
 		6ABC3D2D27172D5100185A68 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				51A39AF8275B0E73006762C6 /* IMG_1660.HEIC */,
+				51A39AF9275B0E73006762C6 /* IMG_1661.HEIC */,
+				51A39AFA275B0E73006762C6 /* IMG_1662.HEIC */,
+				51A39AEA275B0E01006762C6 /* IMG_1652.HEIC */,
+				51A39AE9275B0E01006762C6 /* IMG_1653.HEIC */,
+				51A39AEE275B0E01006762C6 /* IMG_1654.HEIC */,
+				51A39AEF275B0E01006762C6 /* IMG_1655.HEIC */,
+				51A39AEB275B0E01006762C6 /* IMG_1656.HEIC */,
+				51A39AE8275B0E01006762C6 /* IMG_1657.HEIC */,
+				51A39AED275B0E01006762C6 /* IMG_1658.HEIC */,
+				51A39AEC275B0E01006762C6 /* IMG_1659.HEIC */,
 				6A096DBD2719E6FA00909E2D /* dino.jpg */,
 				6ABC3D3127172DA800185A68 /* itp-logo.jpg */,
 			);
@@ -112,7 +145,7 @@
 			);
 			name = ARAnchorPlayground;
 			productName = ARAnchorPlayground;
-			productReference = 6ABC3D1A27172CF400185A68 /* AR Anchor PG.app */;
+			productReference = 6ABC3D1A27172CF400185A68 /* Coral.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -153,12 +186,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51A39AF0275B0E01006762C6 /* IMG_1657.HEIC in Resources */,
 				6A096DBE2719E6FA00909E2D /* dino.jpg in Resources */,
+				51A39AF2275B0E01006762C6 /* IMG_1652.HEIC in Resources */,
 				6ABC3D2727172CF600185A68 /* Preview Assets.xcassets in Resources */,
+				51A39AF3275B0E01006762C6 /* IMG_1656.HEIC in Resources */,
 				6ABC3D3227172DA800185A68 /* itp-logo.jpg in Resources */,
 				51AC648E27573C6900A2EC3A /* stone-test.usdz in Resources */,
+				51A39AF4275B0E01006762C6 /* IMG_1659.HEIC in Resources */,
+				51A39AF6275B0E01006762C6 /* IMG_1654.HEIC in Resources */,
+				51A39AF5275B0E01006762C6 /* IMG_1658.HEIC in Resources */,
 				51CB031F275758170024552E /* stone-test-larva.usdz in Resources */,
+				51A39AF7275B0E01006762C6 /* IMG_1655.HEIC in Resources */,
 				6ABC3D2427172CF600185A68 /* Assets.xcassets in Resources */,
+				51A39AF1275B0E01006762C6 /* IMG_1653.HEIC in Resources */,
+				51A39AFC275B0E73006762C6 /* IMG_1661.HEIC in Resources */,
+				51A39AFB275B0E73006762C6 /* IMG_1660.HEIC in Resources */,
+				51A39AFD275B0E73006762C6 /* IMG_1662.HEIC in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,7 +345,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ARAnchorPlayground/Preview Content\"";
-				DEVELOPMENT_TEAM = 3T4A95YNZ6;
+				DEVELOPMENT_TEAM = RNT7HQNGR2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -316,8 +360,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = arcontent.Coral;
-				PRODUCT_NAME = "AR Anchor PG";
+				PRODUCT_BUNDLE_IDENTIFIER = coral.app;
+				PRODUCT_NAME = Coral;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -332,7 +376,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ARAnchorPlayground/Preview Content\"";
-				DEVELOPMENT_TEAM = 3T4A95YNZ6;
+				DEVELOPMENT_TEAM = RNT7HQNGR2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -347,8 +391,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = arcontent.Coral;
-				PRODUCT_NAME = "AR Anchor PG";
+				PRODUCT_BUNDLE_IDENTIFIER = coral.app;
+				PRODUCT_NAME = Coral;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
