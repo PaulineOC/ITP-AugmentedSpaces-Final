@@ -8,6 +8,8 @@ import Combine
 
 
 // MARK: - Game Constants
+//General Constants
+let numDiageticImgMaterials = 10
 //Coral Formation:
 let currentTimerLength = 15
 let startingLava = 2
@@ -28,8 +30,9 @@ enum IntroState{
 
 enum CoralFormationState{
     case INTRO
-    case INTSTRUCTIONS
     case CREATION
+    case GROWTH
+    case NAMING
     case SUCCESS
 }
 
@@ -39,31 +42,23 @@ enum CoralCommunityState{
     case JOINED_COMMUNITY
 }
 
-enum CoralBleachingState{
-    case INTRO
-    case INSTRUCTIONS
-    case SUCCESS
-    case FAILURE
-}
-
 
 // MARK: - View model for handling communication between the UI and ARView.
 class ViewModel: ObservableObject {
     
     // App / Game States
-    @Published var appMode: AppMode = AppMode.INTRO
+    @Published var appMode: AppMode = AppMode.CORAL_COMMUNITY
     @Published var currentIntroState: IntroState =  IntroState.INSTRUCTIONS
     @Published var currentCoralFormationState: CoralFormationState =  CoralFormationState.INTRO
     @Published var currentCoralCommunityState: CoralCommunityState =  CoralCommunityState.INSTRUCTIONS
-    @Published var currentCoralBleachingState: CoralBleachingState =  CoralBleachingState.INTRO
-
+ 
     let uiSignal = PassthroughSubject<UISignal, Never>()
 
     enum UISignal {
         case reset
+        case CoralFormation_Intro_Next
     }
 }
-
 
 // MARK: - UI Layer.
 struct ContentView : View {
@@ -82,16 +77,29 @@ struct ContentView : View {
                 //AppMode.Intro
                 if(viewModel.appMode == AppMode.INTRO){
                     if(viewModel.currentIntroState == IntroState.INSTRUCTIONS){
-                          d
+                          
                     }
                     else if(viewModel.currentIntroState == IntroState.CORAL_FACTS){}
                 }//end of AppMode.Intro
                 
                 //AppMode.CoralFormation
                 else if(viewModel.appMode == AppMode.CORAL_FORMATION){
-                    if(viewModel.currentCoralFormationState == CoralFormationState.INTRO){}
-                    else if(viewModel.currentCoralFormationState == CoralFormationState.INTSTRUCTIONS){}
+                    if(viewModel.currentCoralFormationState == CoralFormationState.INTRO){
+                        
+                        Button {
+                            viewModel.uiSignal.send(.CoralFormation_Intro_Next)
+                            viewModel.currentCoralFormationState = CoralFormationState.CREATION
+                        } label: {
+                            Text("Next")
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .font(.system(.largeTitle))
+                                .foregroundColor(.white)
+                        }
+                        
+                    }
                     else if(viewModel.currentCoralFormationState == CoralFormationState.CREATION){}
+                    else if(viewModel.currentCoralFormationState == CoralFormationState.GROWTH){}
+                    else if(viewModel.currentCoralFormationState == CoralFormationState.NAMING){}
                     else if(viewModel.currentCoralFormationState == CoralFormationState.SUCCESS){}
                 }//End of AppMode.CoralFormation
                 
@@ -101,24 +109,12 @@ struct ContentView : View {
                     else if(viewModel.currentCoralCommunityState == CoralCommunityState.FOUND_COMMUNITY){}
                     else if(viewModel.currentCoralCommunityState == CoralCommunityState.JOINED_COMMUNITY){}
                 }//End of AppMode.CORAL_COMMUNITY
-                
-                //AppMode.CORAL_BLEACHING
-                else if(viewModel.appMode == AppMode.CORAL_BLEACHING){
-                    if(viewModel.currentCoralBleachingState == CoralBleachingState.INSTRUCTIONS){}
-                    else if(viewModel.currentCoralBleachingState == CoralBleachingState.INTRO){}
-                    else if(viewModel.currentCoralBleachingState == CoralBleachingState.INSTRUCTIONS){}
-                    else if(viewModel.currentCoralBleachingState == CoralBleachingState.FAILURE){}
-                    else if(viewModel.currentCoralBleachingState == CoralBleachingState.SUCCESS){}
-                }//End of AppMode.CORAL_BLEACHING
-                
-                
+                 
                 ARViewContainer(viewModel: viewModel)
 
-                
             }// end of main else
-            
-            //MARK: Testing Space (add UI that doesn't need state)
-            
+
+ 
             // Reset button.
             Button {
                 viewModel.uiSignal.send(.reset)
@@ -131,8 +127,6 @@ struct ContentView : View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding()
-            
-            
             
         }
         .edgesIgnoringSafeArea(.all)
@@ -162,9 +156,18 @@ class SimpleARView: ARView, ARSessionDelegate {
     // Dictionary for tracking image anchors.
     var imageAnchorToEntity: [ARImageAnchor: AnchorEntity] = [:]
     
+    // General Variables
+    var parentEntity: Entity?
+    var directionalLight: Entity?
+    var diageticPlaneMaterial = [RealityKit.Material]()
+    var diageticPlane: ModelEntity?
+    // Coral Formation Variables
     var allLarva:[LarvaEntity] = []
-
-
+    var landingStoneEntity: ModelEntity?
+   
+    // Coral Community Variables
+    var isHoldingCoral = false
+    var hasTurnedAwayFromCoralChild = false;
 
     init(frame: CGRect, viewModel: ViewModel) {
         self.viewModel = viewModel
@@ -186,9 +189,11 @@ class SimpleARView: ARView, ARSessionDelegate {
         
         setupScene()
         
+        //TODO: image
+        //setupDiageticPlaneImageMaterials();
+        
         setupEntities()
     }
-    
 
     func setupScene() {
         // Setup world tracking and image detection.
@@ -201,7 +206,7 @@ class SimpleARView: ARView, ARSessionDelegate {
         // Setup target image A.
         if let detectionImage = makeDetectionImage(named: "itp-logo.jpg",
                                                    referenceName: "IMAGE_ALPHA",
-                                                   physicalWidth: 0.18415) {
+                                                   physicalWidth: 0.18) {
             set.insert(detectionImage)
         }
 
@@ -211,11 +216,102 @@ class SimpleARView: ARView, ARSessionDelegate {
                                                    physicalWidth: 0.19) {
             set.insert(detectionImage)
         }
-
+    
+        
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1652.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1653.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1654.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
+        
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1654.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1655.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1656.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1657.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1658.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1659.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1660.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1661.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
+        // Setup target image C
+        if let detectionImage = makeDetectionImage(named: "IMG_1662.HEIC",
+                                                   referenceName: "IMAGE_BETA",
+                                                   physicalWidth: 0.19) {
+            set.insert(detectionImage)
+        }
+        
 
         // Add target images to configuration.
         configuration.detectionImages = set
-        configuration.maximumNumberOfTrackedImages = 2
+        configuration.maximumNumberOfTrackedImages = 11
 
         // Run configuration.
         arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
@@ -230,47 +326,37 @@ class SimpleARView: ARView, ARSessionDelegate {
             self?.processUISignal($0)
         }.store(in: &subscriptions)
         
-        
-        // Respond to collision events.
-        arView.scene.subscribe(to: CollisionEvents.Began.self) { event in
+        // MARK: Collision
+        arView.scene.subscribe(to: CollisionEvents.Began.self) { [self] event in
             print("💥 Collision with \(event.entityA.name) & \(event.entityB.name)")
             
-            //TODO: include state check
             
-            for i in 0..<self.allLarva.count{
-                            if (event.entityA.name == "larva-\(i)" && event.entityB.name == "landingStone"){
-                                self.allLarva[i].handleAttachingToStone()
-                                
-                                //TODO: immediately stop moving the item ?
-                                // Remove gesture for particular item?
-                                //print(self.arView.gestureRecognizers)
-                                
-//                                let test = self.arView.gestureRecognizers[0]
-//                                print(self.pov.orientation.angle)
-//                                print(self.pov.transform.rotation)
-//                                ARView.EntityGestures.translation.remove(self.allLarva[i]);
- 
-                                //self.arView.removeGestureRecognizer([.translation])
-//                                arView.installGestures([.translation,], for: larva)
+            // Coral Formation
+            if(self.viewModel.appMode == AppMode.CORAL_FORMATION && viewModel.currentCoralFormationState == CoralFormationState.CREATION){
+        
+                for i in 0..<self.allLarva.count{
+                                if (event.entityA.name == "larva-\(i)" && event.entityB.name == "landingStone"){
+                                    self.allLarva[i].handleAttachingToStone()
+                                }
+                }
+            }
+            
+            if(self.viewModel.appMode == AppMode.CORAL_COMMUNITY && viewModel.currentCoralCommunityState == CoralCommunityState.FOUND_COMMUNITY ){
+                if (event.entityA.name == "myCoral" && event.entityB.name == "worldCoral"){
 
-                                
-                            }
-                            
-                        }
+                //Detect if collision
+                }
             
-                    
+            }
             
-            
-            
-           }.store(in: &subscriptions)
+        }.store(in: &subscriptions)
         
         // Set session delegate.
         arView.session.delegate = self
         
+        // TODO: hide/show physics colliders
         arView.debugOptions = [.showPhysics]
-
     }
-
 
     // Helper method for creating a detection image.
     func makeDetectionImage(named: String, referenceName: String, physicalWidth: CGFloat) -> ARReferenceImage? {
@@ -285,22 +371,26 @@ class SimpleARView: ARView, ARSessionDelegate {
         return arReferenceImage
     }
 
-
     // Process UI signals.
     func processUISignal(_ signal: ViewModel.UISignal) {
         switch signal {
         case .reset:
             print("👇 Did press reset button")
-            
             // Reset scene and all anchors.
             arView.scene.anchors.removeAll()
             subscriptions.removeAll()
             
             setupScene()
             setupEntities()
+            break;
+        case .CoralFormation_Intro_Next:
+            print("Going to Instructions/Interactive");
+            //TODO add coral formation
+            //self.addCoralFormationEntities(anchorEntity: <#T##AnchorEntity#>)
+            
+            break;
         }
     }
-
 
     // Called when an anchor is added to scene.
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
@@ -313,20 +403,26 @@ class SimpleARView: ARView, ARSessionDelegate {
             let anchorEntity = AnchorEntity(world: $0.transform)
             arView.scene.addAnchor(anchorEntity)
             
-            //If any of the reference images are detected
-            //setup scene
-            
-            setupSceneEntities(anchorEntity: anchorEntity)
-            // Setup logic based on reference image.
-//            if referenceImageName == "IMAGE_ALPHA" {
-//                setupEntitiesForImageAlpha(anchorEntity: anchorEntity)
-//            } else if referenceImageName == "IMAGE_BETA" {
-//                setupEntitiesForImageBeta(anchorEntity: anchorEntity)
-//            }
+            // MARK: Found Tag
+            //If any of the reference images are detected, setup parent entity
+            parentEntity = makeBoxMarker(color: .green)
+//            parentEntity?.transform = Transform.identity
+            anchorEntity.addChild(parentEntity!);
+            parentEntity?.position.y = 0.8
+
         }
     }
 
-
+    func setupDiageticPlaneImageMaterials() {
+        for idx in 0 ..< numDiageticImgMaterials {
+               var unlitMaterial = UnlitMaterial()
+               let imageNamed = "diagetic-material-image\(idx)"
+               unlitMaterial.color.texture = UnlitMaterial.Texture.init(try! .load(named: imageNamed))
+               unlitMaterial.color.tint    = UIColor.white.withAlphaComponent(0.999999)
+               diageticPlaneMaterial.append(unlitMaterial)
+           }
+       }
+    
     // Setup method for non image anchor entities.
     func setupEntities() {
         // Create an anchor at scene origin.
@@ -339,36 +435,22 @@ class SimpleARView: ARView, ARSessionDelegate {
         // Add pov entity that follows the camera.
         pov = AnchorEntity(.camera)
         arView.scene.addAnchor(pov)
-    }
-
-
-    // IMPORTANT: Attach to anchor entity. Called when image target is found.
-
-    func setupSceneEntities(anchorEntity: AnchorEntity) {
-        // Add red box to alpha anchor.
-        // TODO: remove once all models in place
-        let marker = makeBoxMarker(color: .red)
-        anchorEntity.addChild(marker)
-
-        let landingStone = setupLandingRockEntity();
-        anchorEntity.addChild(landingStone)
         
-        //let larva = setupLarvaEntity();
-        //anchorEntity.addChiƒld(larva);
+        //Setup main entities
+        diageticPlane =   ModelEntity(mesh: .generatePlane(width: 0.5, depth: 0.5), materials: [SimpleMaterial(color: .blue, isMetallic: false)])
         
+        //Coral Formation Entities
+        landingStoneEntity = setupLandingRockEntity() as! ModelEntity;
         for ind in 0..<startingLava {
             let name = "larva-\(ind)"
             let larva = LarvaEntity(name: name, ind: Float(ind))
             arView.installGestures([.translation,], for: larva)
-            
-            anchorEntity.addChild(larva)
             allLarva.append(larva)
         }
- 
     }
-    
+
     //Setup Entities:
-    func setupLandingRockEntity() -> Entity{
+    func setupLandingRockEntity() -> ModelEntity{
         let stone = try! Entity.loadModel(named: "stone-test.usdz")
         let stoneMesh = ShapeResource.generateConvex(from: stone.model!.mesh)
         stone.components[CollisionComponent.self] = CollisionComponent(shapes: [stoneMesh], mode: .default, filter: .default)
@@ -377,33 +459,43 @@ class SimpleARView: ARView, ARSessionDelegate {
         stone.name = "landingStone";
         return stone;
     }
-    // OLD
-    func setupLarvaEntity() -> Entity{
-        let larva = try! Entity.loadModel(named: "stone-test-larva.usdz")
-        let larvaMesh = ShapeResource.generateConvex(from: larva.model!.mesh)
-        larva.components[CollisionComponent.self] = CollisionComponent(shapes: [larvaMesh], mode: .default, filter: .default)
-        //Positioning and scale:
-        larva.scale = [0.0025,0.0025,0.0025];
-        larva.position.x = 0.07;
-        arView.installGestures([.translation,], for: larva)
-        return larva;
+    
+    // MARK: Attach to anchor entity,
+    // Set certain entities to false
+    func addCoralFormationEntities(anchorEntity: AnchorEntity) {
+         // TODO: remove once all models in place
+        let marker = makeBoxMarker(color: .red)
+        anchorEntity.addChild(marker)
+        
+        // Coral Formation
+        anchorEntity.addChild(landingStoneEntity!)
+        for larva in allLarva {
+            anchorEntity.addChild(larva)
+        }
+        // Coral Community
+    }
+    
+    func addCoralCommunityEntities() {
+        print("coral community");
     }
     
     // Render loop.
     func renderLoop() {
-//        print(camera.orientation)
-        //TODO: print camera rotation?
-        print(self.pov.transform.rotation)
-        print(self.pov.transform.translation)
-
-        print(self.cameraTransform.translation.x)
-        print(self.cameraTransform.rotation)
+        print("rotation y")
+        print(self.cameraTransform.rotation.vector.y)
+        let currCameraRotationY = self.cameraTransform.rotation.vector.y
         
-        let testCameraX = self.cameraTransform.translation.x
-        let originAnchorX = self.originAnchor.position.x
-//        let testDist = distance(<#T##x: SIMD2<Float>##SIMD2<Float>#>, <#T##y: SIMD2<Float>##SIMD2<Float>#>)(testCameraX, originAnchorX)
-//        print(distance(, self.originAnchor.position)
+        //Animate Coral Growing Timer Gif
         
+        //Animate Coral Growing Timer Gif
+        if(self.viewModel.appMode == AppMode.CORAL_FORMATION && self.viewModel.currentCoralFormationState == CoralFormationState.GROWTH){
+            print("growing coral");
+        }
+        
+        //Coral Community - Drag Your Coral Pointer Gif
+        if(self.viewModel.appMode == AppMode.CORAL_COMMUNITY && self.viewModel.currentCoralCommunityState == CoralCommunityState.INSTRUCTIONS){
+            print("growing coral");
+        }
     }
 
     // Helper method for making box to mark anchor position.
@@ -412,16 +504,7 @@ class SimpleARView: ARView, ARSessionDelegate {
         let material  = SimpleMaterial(color: color, isMetallic: false)
         return ModelEntity(mesh: boxMesh, materials: [material])
     }
-    
-    //UNUSED
-    func setupEntitiesForImageBeta(anchorEntity: AnchorEntity) {
-        // Add green marker to beta anchor.
-        let marker = makeBoxMarker(color: .green)
-        anchorEntity.addChild(marker)
-
-    }
 }
-
 
 class LarvaEntity: Entity, HasModel, HasCollision  {
     var model: ModelEntity
@@ -456,7 +539,8 @@ class LarvaEntity: Entity, HasModel, HasCollision  {
    }
     func handleAttachingToStone(){
         //Snap position?
-        // TODO: Snap position. Ensure that the larva is in FRONT of the rock (ie change the Z position too)
+        // TODO: Snap position. Ensure that the larva is in FRONT of the rock (ie change the Z position too)/
+        self.model.position.z += 0.1;
         
         //turn off collision
         self.model.components[CollisionComponent.self] = nil;
